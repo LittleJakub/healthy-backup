@@ -1,0 +1,6 @@
+{
+  "slug": "healthy-backup",
+  "version": "1.3.0",
+  "description": "Health-gated OpenClaw backup. Audits first, backs up only if healthy. Secret values never staged.",
+  "publishedAt": null
+}
