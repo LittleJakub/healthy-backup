@@ -1,4 +1,4 @@
-# 🩺 healthy-backup
+# 🩺 Healthy Backup
 
 **Health-gated backup for OpenClaw rigs. Audits first — only backs up if healthy.**
 
