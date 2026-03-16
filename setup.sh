@@ -5,7 +5,7 @@
 set -euo pipefail
 
 VERSION="1.3.0"
-CFG_DIR="$HOME/.openclaw/config/healthy-backup"
+CFG_DIR="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}/config/healthy-backup"
 CFG_FILE="$CFG_DIR/hb-config.json"
 SD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCRIPT="$SD/healthy-backup.sh"
@@ -92,7 +92,7 @@ if [[ "$TIER" != "minimal" ]]; then
 fi
 
 header "━━━ 7. Encryption password"
-KF="$HOME/.openclaw/credentials/backup.key"
+KF="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}/credentials/backup.key"
 echo -e "  Recommended: ${BO}$KF${X} (chmod 600)\n"
 if [ -f "$KF" ]; then
     ok "Key file found"
@@ -136,7 +136,7 @@ jq empty "$CFG_FILE" 2>/dev/null && ok "Config written and valid → $CFG_FILE" 
 # ── Cron ──────────────────────────────────────────────────────────────────────
 if [ "$INSTALL_CRON" = true ]; then
     header "━━━ Installing cron"
-    LD="$HOME/.openclaw/logs"; mkdir -p "$LD"
+    LD="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}/logs"; mkdir -p "$LD"
     CL="$CM $CH * * * bash \"$SCRIPT\" >> \"$LD/healthy-backup.log\" 2>&1"
     ( crontab -l 2>/dev/null | grep -v "healthy-backup.sh"; echo "$CL" ) | crontab -
     ok "Installed: $CL"

@@ -13,7 +13,7 @@
 set -euo pipefail
 
 VERSION="1.3.0"
-OC="$HOME/.openclaw"
+OC="${OPENCLAW_STATE_DIR:-$HOME/.openclaw}"
 OC_CFG="$OC/openclaw.json"
 HB_CFG="$OC/config/healthy-backup/hb-config.json"
 MODE="${1:-backup}"   # backup | --dry-run | --verify
@@ -49,13 +49,13 @@ MINDISK=$(cfg minDiskMb MIN_DISK_MB  "500")
 C_NPM=$(cfg  collectNpm     COLLECT_NPM     "false")
 C_CRON=$(cfg collectCrontab COLLECT_CRONTAB "false")
 C_OLL=$(cfg  collectOllama  COLLECT_OLLAMA  "true")
-SECRETS="$OC/shared/secrets/openclaw-secrets.env"
+SECRETS="$OC/.env"
 
 PW="${BACKUP_PASSWORD:-$(cfg password BACKUP_PASSWORD "")}"
 KF="$OC/credentials/backup.key"
 [ -z "$PW" ] && [ -f "$KF" ] && PW=$(tr -d '\n' < "$KF")
 
-EX=(--exclude=shared/secrets/ --exclude=credentials/
+EX=(--exclude=.env --exclude=credentials/
     --exclude='*.key' --exclude='*.pem' --exclude='*.env'
     --exclude='*.secret' --exclude='.env'
     --exclude='.git/' --exclude='node_modules/' --exclude='BACKUPS/')
