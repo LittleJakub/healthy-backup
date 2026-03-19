@@ -47,7 +47,7 @@ Every archive contains a `HEALTH_REPORT.txt` — the full audit log from the mom
 **Certain paths are hard-excluded from rsync at every tier, with no config override:**
 
 ```
-~/.openclaw/shared/secrets/
+~/.openclaw/ (.env file)
 ~/.openclaw/credentials/
 *.key  *.pem  *.env  *.secret  .env
 ```

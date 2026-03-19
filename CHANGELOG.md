@@ -130,7 +130,7 @@ healthy-backup.sh --verify /path/to/archive.tgz.gpg   # verify single file
 ## [1.1.0] — security hardening
 
 ### Fixed
-- **Secrets staging contradiction**: `~/.openclaw/shared/secrets/` and `credentials/` are now hard-excluded from all `rsync` calls via a top-level `ALWAYS_EXCLUDE` array — no config can override this
+- **Secrets staging contradiction**: `~/.openclaw/ (.env file)` and `credentials/` are now hard-excluded from all `rsync` calls via a top-level `ALWAYS_EXCLUDE` array — no config can override this
 - Additional secret-bearing file patterns excluded: `*.key`, `*.pem`, `*.env`, `*.secret`, `.env`
 - **GPG passphrase on process list**: switched from `--passphrase` CLI arg to `--passphrase-file` pointing at a `chmod 600` temp file; password `unset` from environment after writing; temp file deleted via `trap EXIT`
 - `backup.key` permissions now hard-fail (not warn) if not `600`

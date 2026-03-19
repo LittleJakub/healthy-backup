@@ -40,7 +40,7 @@ Run with `--dry-run` to execute the full audit and see exactly what would be sta
 The following paths are hard-excluded from rsync at every tier:
 
 ```
-~/.openclaw/shared/secrets/
+~/.openclaw/ (.env file)
 ~/.openclaw/credentials/
 **/*.key  **/*.pem  **/*.env  **/*.secret  **/.env
 ```
@@ -62,7 +62,7 @@ This section lists every file and system call the script makes, so there are no 
 | What | Why | Sensitive? |
 |------|-----|-----------|
 | `~/.openclaw/openclaw.json` | Load config + stage (scrubbed copy) | Sensitive fields redacted before staging |
-| `~/.openclaw/shared/secrets/openclaw-secrets.env` | Extract variable *names* for manifest | Values never written; file never copied |
+| `~/.openclaw/.env` | Extract variable *names* for manifest | Values never written; file never copied |
 | `~/.openclaw/credentials/backup.key` | Load encryption password | Read into memory only; file excluded from rsync |
 | `~/.openclaw/` (migratable+) | rsync to staging | Secrets paths hard-excluded |
 | Workspace + skills dirs (full tier) | rsync to staging | Secrets paths hard-excluded |
